@@ -1,7 +1,9 @@
 name: revisit_pro
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: A package to track most visited and recently opened pages in a Flutter app.
+version: 1.0.0
+homepage: https://github.com/45afeef/revisit_pro
+repository: https://github.com/45afeef/revisit_pro
+license: MIT
 
 environment:
   sdk: ^3.5.4
