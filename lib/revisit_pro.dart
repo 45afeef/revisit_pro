@@ -1,7 +1,7 @@
 library revisit_pro;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+// export 'src/config/visited_pages_config.dart';
+// export 'src/models/visited_page.dart';
+export 'src/storage/visited_pages_storage.dart';
+export 'src/tracker/page_tracker.dart';
+export 'src/widgets/visited_pages_list_view.dart';

@@ -1,39 +1,67 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Revisit Pro
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that tracks the most visited and recently opened pages in an app.  
+It categorizes pages, applies exponential decay for ranking, persists data, and allows custom UI.
 
 ## Features
+✅ Tracks **Most Visited** and **Recently Opened** pages  
+✅ Uses **Exponential Decay** for ranking  
+✅ **Excludes specific pages** from tracking  
+✅ **Configurable decay rate**  
+✅ **Persistent storage** across sessions  
+✅ Open-source and customizable  
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Installation
 
-## Getting started
+Add this to `pubspec.yaml`:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+dependencies:
+  revisit_pro:
+    git:
+      url: https://github.com/45afeef/revisit_pro.git
+
+```
+
+
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+### **Initialize Hive**
 ```dart
-const like = 'sample';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await VisitedPagesStorage.init();
+  runApp(MyApp());
+}
 ```
 
-## Additional information
+### **Track Page Visits**
+```dart
+PageTracker.startTracking("Home Page", "collection", "/home");
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+// When page is closed
+PageTracker.stopTracking();
+```
+
+### **Use the UI Widget to Display Most Visited Pages**
+```dart
+VisitedPagesListView(
+  itemBuilder: (context, page) => ListTile(
+    title: Text(page.pageName),
+    subtitle: Text("Visited ${page.visitCount} times"),
+    onTap: () => Navigator.pushNamed(context, page.url),
+  ),
+)
+```
+
+### **Customize Settings**
+```dart
+VisitedPagesConfig.setDecayRate(0.05);
+VisitedPagesConfig.excludePages(["/settings", "/login"]);
+```
+
+### **Reset Data**
+```dart
+await VisitedPagesStorage.resetTrackingData();
+```
